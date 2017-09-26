@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Realtime Chart OpenBook</title>
+	
+	<link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="vendors/pace/pace.min.css">
+	<link rel="stylesheet" href="vendors/amcharts/amcharts/plugins/export/export.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand">Realtime Orderbook Chart</a>
+	</nav>
+	<div class="" style="padding: 8px 16px">
+		<div class="row">
+			<div class="col">
+				<div class="div form-group"><label for="">Chart 1</label><select name="" id="select-chart-1" class="form-control"></select></div>
+			</div>
+			<div class="col">
+				<div class="div form-group"><label for="">Chart 2</label><select name="" id="select-chart-2" class="form-control"></select></div>
+			</div>
+			<div class="col">
+				<div class="div form-group"><label for="">Chart 3</label><select name="" id="select-chart-3" class="form-control"></select></div>
+			</div>
+			<div class="col">
+				<div class="div form-group"><label for="">Chart 4</label><select name="" id="select-chart-4" class="form-control"></select></div>
+			</div>
+			<div class="col">
+				<div class="div form-group"><label for="">Chart 5</label><select name="" id="select-chart-5" class="form-control"></select></div>
+			</div>
+			<div class="col">
+				<div class="div form-group"><label for="">Chart 6</label><select name="" id="select-chart-6" class="form-control"></select></div>
+			</div>
+		</div>
+		<div id="alert" class="alert alert-info" role="alert">
+			Start Streem Server
+		</div>
+		<div class="row">
+			<div class="col-md-6 ">
+				<h2 id="label-chart-1" style="display: inline-block;"></h2>
+				<h5 class="text-muted" style="display: inline-block;">Chart 1</h5>
+				<div id="chartdiv-1" class="chartSize"></div>
+			</div>
+			<div class="col-md-6 ">
+				<h2 id="label-chart-2" style="display: inline-block;"></h2>
+				<h5 class="text-muted" style="display: inline-block;">Chart 2</h5>
+				<div id="chartdiv-2" class="chartSize"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 ">
+				<h2 id="label-chart-3" style="display: inline-block;"></h2>
+				<h5 class="text-muted" style="display: inline-block;">Chart 3</h5>
+				<div id="chartdiv-3" class="chartSize"></div>
+			</div>
+			<div class="col-md-6 ">
+				<h2 id="label-chart-4" style="display: inline-block;"></h2>
+				<h5 class="text-muted" style="display: inline-block;">Chart 4</h5>
+				<div id="chartdiv-4" class="chartSize"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 ">
+				<h2 id="label-chart-5" style="display: inline-block;"></h2>
+				<h5 class="text-muted" style="display: inline-block;">Chart 5</h5>
+				<div id="chartdiv-5" class="chartSize"></div>
+			</div>
+			<div class="col-md-6 ">
+				<h2 id="label-chart-6" style="display: inline-block;"></h2>
+				<h5 class="text-muted" style="display: inline-block;">Chart 6</h5>
+				<div id="chartdiv-6" class="chartSize"></div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<!-- Vendors -->
+	<script src="vendors/cryptocompare/jquery-3.1.1.min.js"></script>
+	<script src="vendors/amcharts/amcharts/amcharts.js"></script>
+	<script src="vendors/amcharts/amcharts/serial.js"></script>
+	<script src="vendors/amcharts/amcharts/plugins/dataloader/dataloader.min.js"></script>
+	<script src="vendors/amcharts/amcharts/plugins/export/export.min.js"></script>
+	<script src="vendors/amcharts/amcharts/themes/light.js"></script>
+	<script src="vendors/pace/pace.min.js"></script>
+	<!-- App Script -->
+	<script src="app.js"></script>
+</body>
+</html>

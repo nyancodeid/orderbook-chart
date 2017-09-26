@@ -1,0 +1,48 @@
+
+<!-- saved from url=(0045)https://cryptoqween.github.io/streamer/trade/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<link rel="stylesheet" type="text/css" href="./CryptoCompare Streamer API Example_files/style.css">
+	<title>CryptoCompare Streamer API Example</title>
+</head>
+
+<body>
+
+<div class="wrapper">
+<h1>BTC Market Trades</h1>
+<div>
+	<button class="subs-button">Subscribe</button>
+	<button class="unsubs-button">Unsubscribe</button>
+	<span id="message">Streaming...</span>
+</div>
+<div class="source"> Source: <a href="http://www.cryptocompare.com/">CryptoCompare</a></div>
+<table id="trades-btc">
+	<tbody><tr>
+		<th>Market</th>
+		<th>Type</th>
+		<th>ID</th>
+		<th>Price</th>
+		<th>Quantity</th>
+		<th>Total</th>
+	</tr>
+</tbody>
+<table id="trades-eth">
+	<tbody><tr>
+		<th>Market</th>
+		<th>Type</th>
+		<th>ID</th>
+		<th>Price</th>
+		<th>Quantity</th>
+		<th>Total</th>
+	</tr>
+</tbody>
+</table>
+</div>
+
+<script src="./CryptoCompare Streamer API Example_files/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="./CryptoCompare Streamer API Example_files/socket.io.js"></script>
+<script src="./CryptoCompare Streamer API Example_files/ccc-streamer-utilities.js"></script>
+<script src="./CryptoCompare Streamer API Example_files/stream.js"></script>
+
+
+</body></html>
