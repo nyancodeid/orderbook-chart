@@ -10,70 +10,80 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<nav class="navbar navbar-light bg-light">
-		<a class="navbar-brand">Realtime Orderbook Chart</a>
-	</nav>
 	<div class="" style="padding: 8px 16px">
 		<div class="row">
 			<div class="col">
-				<div class="div form-group"><label for="">Chart 1</label><select name="" id="select-chart-1" class="form-control"></select></div>
+				<div class="div form-group"><label for="">Chart 1</label><select name="" id="select-chart-1" class="form-control select-chart"></select></div>
 			</div>
 			<div class="col">
-				<div class="div form-group"><label for="">Chart 2</label><select name="" id="select-chart-2" class="form-control"></select></div>
+				<div class="div form-group"><label for="">Chart 2</label><select name="" id="select-chart-2" class="form-control select-chart"></select></div>
 			</div>
 			<div class="col">
-				<div class="div form-group"><label for="">Chart 3</label><select name="" id="select-chart-3" class="form-control"></select></div>
+				<div class="div form-group"><label for="">Chart 3</label><select name="" id="select-chart-3" class="form-control select-chart"></select></div>
 			</div>
 			<div class="col">
-				<div class="div form-group"><label for="">Chart 4</label><select name="" id="select-chart-4" class="form-control"></select></div>
+				<div class="div form-group"><label for="">Chart 4</label><select name="" id="select-chart-4" class="form-control select-chart"></select></div>
 			</div>
 			<div class="col">
-				<div class="div form-group"><label for="">Chart 5</label><select name="" id="select-chart-5" class="form-control"></select></div>
+				<div class="div form-group"><label for="">Mode</label>
+					<select name="mode" id="mode" class="form-control">
+						<option value="light" selected>Light Mode</option>
+						<option value="dark">Night Mode</option>
+					</select>
+				</div>
 			</div>
 			<div class="col">
-				<div class="div form-group"><label for="">Chart 6</label><select name="" id="select-chart-6" class="form-control"></select></div>
+				<div class="div form-group"><label for="">Action</label><br>
+					<button id="addButton" class="btn btn-default col-md-12">ADD COIN</button>
+				</div>
 			</div>
-		</div>
-		<div id="alert" class="alert alert-info" role="alert">
-			Start Streem Server
 		</div>
 		<div class="row">
 			<div class="col-md-6 ">
-				<h2 id="label-chart-1" style="display: inline-block;"></h2>
-				<h5 class="text-muted" style="display: inline-block;">Chart 1</h5>
 				<div id="chartdiv-1" class="chartSize"></div>
 			</div>
 			<div class="col-md-6 ">
-				<h2 id="label-chart-2" style="display: inline-block;"></h2>
-				<h5 class="text-muted" style="display: inline-block;">Chart 2</h5>
 				<div id="chartdiv-2" class="chartSize"></div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6 ">
-				<h2 id="label-chart-3" style="display: inline-block;"></h2>
-				<h5 class="text-muted" style="display: inline-block;">Chart 3</h5>
 				<div id="chartdiv-3" class="chartSize"></div>
 			</div>
 			<div class="col-md-6 ">
-				<h2 id="label-chart-4" style="display: inline-block;"></h2>
-				<h5 class="text-muted" style="display: inline-block;">Chart 4</h5>
 				<div id="chartdiv-4" class="chartSize"></div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6 ">
-				<h2 id="label-chart-5" style="display: inline-block;"></h2>
-				<h5 class="text-muted" style="display: inline-block;">Chart 5</h5>
-				<div id="chartdiv-5" class="chartSize"></div>
-			</div>
-			<div class="col-md-6 ">
-				<h2 id="label-chart-6" style="display: inline-block;"></h2>
-				<h5 class="text-muted" style="display: inline-block;">Chart 6</h5>
-				<div id="chartdiv-6" class="chartSize"></div>
-			</div>
+	</div>
+
+	<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-hidden="true" style="color: #333;">
+		<div class="modal-dialog" role="document">
+			<form id="addCoinForm" class="modal-content" action="">
+					<div class="modal-header">
+						<h5 class="modal-title">Menambahkan Coin Baru</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="alert-msg" class="alert alert-danger" style="display: none;">
+							<span id="alert--msg"></span>
+						</div>
+						<div class="alert alert-info">
+							<span>USD disini pakai USDT</span>
+						</div>
+						<div class="form-group">
+							<label for="profile-name" class="form-control-label">Coin</label>
+							<input type="text" class="form-control" id="coin-name">
+							<small class="text-muted">Ex. ETH/USDT, BCH/BTC</small>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save</button>
+					</div>
+			</form>
 		</div>
-		
 	</div>
 	
 	<!-- Vendors -->
@@ -83,7 +93,11 @@
 	<script src="vendors/amcharts/amcharts/plugins/dataloader/dataloader.min.js"></script>
 	<script src="vendors/amcharts/amcharts/plugins/export/export.min.js"></script>
 	<script src="vendors/amcharts/amcharts/themes/light.js"></script>
+	<script src="vendors/amcharts/amcharts/themes/dark.js"></script>
+	<script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+	<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="vendors/pace/pace.min.js"></script>
+	<script src="vendors/nyanStorage/nyanStorage.js"></script>
 	<!-- App Script -->
 	<script src="app.js"></script>
 </body>
