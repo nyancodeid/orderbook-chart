@@ -1,6 +1,6 @@
 var interval,
 	nyanStorage = new nyanStorage(),
-	themeMode = (nyanStorage.isAvailable('theme')) ? "light" : nyanStorage.get('theme'),
+	themeMode = (nyanStorage.isAvailable('theme')) ? nyanStorage.get('theme') : "light",
 	isAlreadyCache = (sessionStorage.profilers == null) ? false : true,
 	dataChart = [];
 var Service = {
@@ -274,11 +274,6 @@ function generateOptions(isBTC, coin, timeout, curs) {
 		}
 	}
 }
-function changeMode() {
-	
-}
-
-
 function balloon(item, graph) {
 	var txt;
 	if (graph.id == "asks") {
@@ -303,13 +298,11 @@ function formatNumber(val, chart, precision) {
 }
 $('#addCoinForm').submit(function(event) {
 	event.preventDefault();
-
-	processAddCoin();
 	return false;
 });
 
 function processAddCoin() {
-	var coinValue = $('#coin-name').val(),
+	var coinValue = $('#coin-name--add').val(),
 		error = false;
 
 	if (coinValue.indexOf('/') === -1) {
@@ -330,31 +323,12 @@ function processAddCoin() {
 			coins.push(coinValue);
 			nyanStorage.put('coins', coins);
 
-			$('.select-chart option').remove();
-
-			for (var i = 1; i <= 4; i++) {
-				var sel = document.getElementById('select-chart-' + i);
-				
-				coins.forEach(function(coin, index) {
-			    	var fragment = document.createDocumentFragment();
-			    	var opt = document.createElement('option');
-				    opt.innerHTML = coin.replace('USDT', 'USD');
-				    opt.value = coin.split('/').reverse().join('_');
-				    fragment.appendChild(opt);
-					sel.appendChild(fragment);
-				});
-			}
-
-			setTimeout(function() {
-				var Profiles = JSON.parse(sessionStorage.profilers);
-
-				Profiles.forEach(function(select, $index) {
-					$('#select-chart-' + ($index + 1)).val(select.value);
-				});
-			}, 500);
+			InitializeSelectOption(coins);
 
 			$('#alert-msg').hide();
-			$('#saveModal').modal('hide');
+			return true;
+		} else {
+			return false;
 		}
 	}
 }
@@ -365,6 +339,118 @@ function showAlert(message) {
 
 $('#addButton').click(function(event) {
 	event.preventDefault();
+	
+	var coins = nyanStorage.get('coins');
+
+	if ( $.fn.DataTable.isDataTable('#coins-table') ) {
+		window.table.fnDestroy();
+		$('#coins-table tbody').empty();
+	}
+
+	var tBody= $('#coins-table tbody');
+	var tr = "";
+
+	for (var i in coins) {
+		var coin = coins[i];
+			tr += "<tr>";
+			tr += "<td>"+coin+"</td>";
+			tr += "<td><button class='btn btn-info button-edit' data-edit='"+ coin +"'>Edit</button>";
+			tr += "<button class='btn btn-danger button-remove' data-remove='"+ coin +"' style='margin-left: 8px;'>Delete</button></td>";
+			tr += "</tr>";
+	}
+	$(tr).appendTo(tBody);
+	
+	$('#coin-name--edit-save').click(function() {
+		// Save
+		var data = $('#coin-name--edit').val();
+		var dataOri = $('#coin-name--edit').data('coin');
+
+		nyanStorage.put('coinsTemp', coins);
+		coins.forEach(function(coin, $index) {
+			if (coin == dataOri) {
+				coins[$index] = data;
+			}
+		});
+		nyanStorage.put('coins', coins);
+
+		// Reinit Select option
+		InitializeSelectOption(coins);
+
+		// ReDraw After delete Coins
+		$(window.tempEditEvent).find('td:first-child').text(data);
+	});
+	$('#coin-name--add-save').click(function() {
+		var status = processAddCoin();
+
+		if (status) {
+			$('#saveModal').modal('hide');
+		}
+	});
+
+	// Check is dataTable Initialized
+	if ( !$.fn.DataTable.isDataTable('#coins-table') ) {
+		InitializeDataTable(coins);
+		window.table = $('#coins-table').dataTable({
+			info: false,
+			lengthMenu: [[8, 10, 25, 50], [8, 10, 25, 50]],
+		});	
+	} else {
+		window.table.api().draw();
+	}
 
 	$('#saveModal').modal('show');
 });
+
+function InitializeDataTable(coins) {
+	$('.button-remove').click(function(event) {
+		var data = $(event.target).data('remove');
+
+		nyanStorage.put('coinsTemp', coins);
+		coins.forEach(function(coin, $index) {
+			if (coin == data) {
+				coins.splice($index, 1); 
+			}
+		});
+		nyanStorage.put('coins', coins);
+
+		// Reinit Select option
+		InitializeSelectOption(coins);
+
+		// ReDraw After delete Coins
+		window.table.api()
+			.row( $(this).parents('tr') )
+			.remove()
+			.draw();
+	});
+	$('.button-edit').click(function(event) {
+		var data = $(event.target).data('edit');
+
+		$('#coin-name--edit').val(data);
+		$('#coin-name--edit').data('coin', data);
+		window.tempEditEvent = $(this).parents('tr');
+	});
+}
+function InitializeSelectOption(coins) {
+	$('.select-chart option').remove();
+
+	for (var i = 1; i <= 4; i++) {
+		var sel = document.getElementById('select-chart-' + i);
+		
+		coins.forEach(function(coin, index) {
+	    	var fragment = document.createDocumentFragment();
+	    	var opt = document.createElement('option');
+		    opt.innerHTML = coin.replace('USDT', 'USD');
+		    opt.value = coin.split('/').reverse().join('_');
+		    fragment.appendChild(opt);
+			sel.appendChild(fragment);
+		});
+	}
+
+	setTimeout(function() {
+		var Profiles = JSON.parse(sessionStorage.profilers);
+
+		Profiles.forEach(function(select, $index) {
+			$('#select-chart-' + ($index + 1)).val(select.value);
+		});
+	}, 500);
+}

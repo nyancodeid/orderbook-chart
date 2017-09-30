@@ -8,6 +8,8 @@
 	<link rel="stylesheet" href="vendors/pace/pace.min.css">
 	<link rel="stylesheet" href="vendors/amcharts/amcharts/plugins/export/export.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="vendors/datatables/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="vendors/datatables/responsive.bootstrap4.min.css">
 </head>
 <body>
 	<div class="" style="padding: 8px 16px">
@@ -34,7 +36,7 @@
 			</div>
 			<div class="col">
 				<div class="div form-group"><label for="">Action</label><br>
-					<button id="addButton" class="btn btn-default col-md-12">ADD COIN</button>
+					<button id="addButton" class="btn btn-default col-md-12">Manage Coins</button>
 				</div>
 			</div>
 		</div>
@@ -57,31 +59,73 @@
 	</div>
 
 	<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-hidden="true" style="color: #333;">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-s-lg" role="document">
 			<form id="addCoinForm" class="modal-content" action="">
-					<div class="modal-header">
-						<h5 class="modal-title">Menambahkan Coin Baru</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div id="alert-msg" class="alert alert-danger" style="display: none;">
-							<span id="alert--msg"></span>
+				<div class="modal-header">
+					<h5 class="modal-title">Manage Coins</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="content-fluid">
+						<div class="row">
+							<div class="col-md-6">
+								<table id="coins-table" class="table table-bordered" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>Coin</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">
+										Edit Panel
+									</div>
+									<div class="card-body">
+										<div class="form-group">
+											<label>Coin</label>
+											<input type="text" class="form-control form-focus" id="coin-name--edit">
+										</div>
+										<div align="right">
+											<button class="btn btn-info" id="coin-name--edit-save">Save</button>
+										</div>
+									</div>
+								</div>
+								<div class="card" style="margin-top: 8px;">
+									<div class="card-header">
+										Add Coin
+									</div>
+									<div class="card-body">
+										<div id="alert-msg" class="alert alert-danger" style="display: none;">
+											<span id="alert--msg"></span>
+										</div>
+										<div class="form-group">
+											<label>Coin</label>
+											<input type="text" class="form-control form-focus" id="coin-name--add">
+											<small class="text-muted">Ex. ETH/USDT, BCH/BTC</small>
+										</div>
+										<div align="right">
+											<button class="btn btn-info" id="coin-name--add-save">Save</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="alert alert-info">
-							<span>USD disini pakai USDT</span>
-						</div>
-						<div class="form-group">
-							<label for="profile-name" class="form-control-label">Coin</label>
-							<input type="text" class="form-control" id="coin-name">
-							<small class="text-muted">Ex. ETH/USDT, BCH/BTC</small>
-						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Save</button>
+					<!-- <div class="alert alert-info">
+						<span>USD disini pakai USDT</span>
 					</div>
+					<div class="form-group">
+						<label for="profile-name" class="form-control-label">Coin</label>
+						<input type="text" class="form-control" id="coin-name">
+						<small class="text-muted">Ex. ETH/USDT, BCH/BTC</small>
+					</div> -->
+				</div>
 			</form>
 		</div>
 	</div>
@@ -94,6 +138,8 @@
 	<script src="vendors/amcharts/amcharts/plugins/export/export.min.js"></script>
 	<script src="vendors/amcharts/amcharts/themes/light.js"></script>
 	<script src="vendors/amcharts/amcharts/themes/dark.js"></script>
+	<script src="vendors/datatables/jquery.dataTables.min.js"></script>
+	<script src="vendors/datatables/dataTables.bootstrap.min.js"></script>
 	<script src="vendors/popper.js/dist/umd/popper.min.js"></script>
 	<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="vendors/pace/pace.min.js"></script>

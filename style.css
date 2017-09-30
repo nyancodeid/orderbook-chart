@@ -6,6 +6,19 @@ h2 {
 	margin: 1em 0;
 }
 
+.dataTables_wrapper input[type=search] {
+    width: calc(100% - 57px) !important;
+}
+
+.modal-s-lg {
+	max-width: 1100px;
+}
+
+.form-focus:focus {
+    border-color: #7952b3;
+    box-shadow: 0 0 0 3px rgba(121,82,179,.25);
+}
+
 .pace {
   -webkit-pointer-events: none;
   pointer-events: none;
